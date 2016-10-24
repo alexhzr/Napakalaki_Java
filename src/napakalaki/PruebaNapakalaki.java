@@ -17,22 +17,110 @@ public class PruebaNapakalaki {
     static final int MAX_TREASURES = 20;
     
     public static void main(String[] args) {
-       inicializarCartas();
+        inicializarCartas();
        
+        ArrayList<Monster> nivelSup10, perdidaNiveles, gananciaNivSup1,
+            perdidaOneHand, perdidaHelmet, perdidaArmor, perdidaBothHands, perdidaShoes;
        
+        nivelSup10 = monstruosNivelSuperior10();
+        perdidaNiveles = monstruosSoloPerdidaNiveles();
+        gananciaNivSup1 = monstruosGananciaNivelesSuperiorA1();
+       
+        perdidaOneHand = monstruosPerdidaTipoObjeto(TreasureKind.ONEHAND);
+        perdidaHelmet = monstruosPerdidaTipoObjeto(TreasureKind.HELMET);
+        perdidaArmor = monstruosPerdidaTipoObjeto(TreasureKind.ARMOR);
+        perdidaBothHands = monstruosPerdidaTipoObjeto(TreasureKind.BOTHHANDS);
+        perdidaShoes = monstruosPerdidaTipoObjeto(TreasureKind.SHOES);
+       
+        imprimirMonstruos("\nMonstruos con nivel superior a 10:", nivelSup10);
+        imprimirMonstruos("\nMonstruos que impliquen sólo pérdida de niveles:", perdidaNiveles);
+        imprimirMonstruos("\nMonstruos con ganancia de nivel superior a 1:", gananciaNivSup1);
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro ONEHAND:", perdidaOneHand);
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro HELMET:", perdidaHelmet);
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro ARMOR:", perdidaArmor);
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro BOTHHANDS:", perdidaBothHands);
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro SHOES:", perdidaShoes);        
+        
     }
     
     private static ArrayList<Monster> monstruosNivelSuperior10() {
         ArrayList<Monster> retMonsters = new ArrayList();
         
-        for (int i = 0; i <= monstruos.size(); i++) {
-            
+        for (int i = 0; i < monstruos.size(); i++) {
+            if (monstruos.get(i).getCombatLevel() > 10)
+                retMonsters.add(monstruos.get(i));
         }
         
         return retMonsters;
     }
     
-    //Faltan 2 páginas de monstruos
+    private static ArrayList<Monster> monstruosSoloPerdidaNiveles() {
+        ArrayList<Monster> retMonsters = new ArrayList();
+        BadConsequence bc;
+        
+        for (int i = 0; i < monstruos.size(); i++) {
+            bc = monstruos.get(i).getBadConsecuence();
+            if      ((bc.getLevels() != 0) 
+                    && (bc.getSpecificHiddenTreasures().size() == 0) 
+                    && (bc.getSpecificVisibleTreasures().size() == 0))  
+                retMonsters.add(monstruos.get(i));
+        }
+        
+        return retMonsters;
+    }
+    
+    private static ArrayList<Monster> monstruosGananciaNivelesSuperiorA1() {
+        ArrayList<Monster> retMonsters = new ArrayList();
+        
+        for (int i = 0; i < monstruos.size(); i++) {
+            if (monstruos.get(i).getPrize().getLevel() > 1)
+                retMonsters.add(monstruos.get(i));
+        }
+        
+        return retMonsters;
+    }
+    
+    private static ArrayList<Monster> monstruosPerdidaTipoObjeto(TreasureKind tipoTesoro) {
+        ArrayList<Monster> retMonsters = new ArrayList();
+        ArrayList<TreasureKind> tesorosOcultos;
+        ArrayList<TreasureKind> tesorosVisibles;
+        boolean encontrado;
+        
+        for (int i = 0; i < monstruos.size(); i++) {
+            encontrado = false;
+            tesorosOcultos = monstruos.get(i).getBadConsecuence().getSpecificHiddenTreasures();
+            
+            for (int j = 0; j < tesorosOcultos.size(); j++) {
+                if (tesorosOcultos.get(j) == tipoTesoro) {
+                    j = tesorosOcultos.size() + 1;
+                    encontrado = true;
+                    retMonsters.add(monstruos.get(i));
+                }
+            }
+            
+            if (!encontrado) {
+                tesorosVisibles = monstruos.get(i).getBadConsecuence().getSpecificVisibleTreasures();
+                for (int k = 0; k < tesorosVisibles.size(); k++) {
+                    if (tesorosVisibles.get(k) == tipoTesoro) {
+                        k = tesorosVisibles.size() + 1;
+                        retMonsters.add(monstruos.get(i));
+                    }
+                }
+            }
+            
+         
+        }
+        
+        return retMonsters;
+    }
+    
+    private static void imprimirMonstruos(String mensajeInicial, ArrayList<Monster> monsters) {        
+        for (int i = 0; i < monsters.size(); i++) 
+            mensajeInicial += "\n" + monsters.get(i).toString();
+        
+        System.out.println(mensajeInicial);
+    }
+    
     private static void inicializarCartas() {
         //Rey de rosa 
         BadConsequence bc = new BadConsequence("Pierdes 5 niveles y 3 tesoros visibles", 5, 3, 0);

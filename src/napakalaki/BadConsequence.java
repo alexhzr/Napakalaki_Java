@@ -30,6 +30,7 @@ public class BadConsequence {
     public BadConsequence(String text, boolean death) {
         this.text = text;
         this.death = death;
+        levels = 0;
     }
     
     public BadConsequence(String text, int levels, ArrayList<TreasureKind> tVisible, ArrayList<TreasureKind> tHidden) {
@@ -43,9 +44,17 @@ public class BadConsequence {
         return "Text = " + text + " - Levels = " + Integer.toString(levels);
     }
     
-    
-    
-    
+    public int getLevels() {
+        return this.levels;
+    }
+
+    public ArrayList<TreasureKind> getSpecificHiddenTreasures() {
+        return specificHiddenTreasures;
+    }
+
+    public ArrayList<TreasureKind> getSpecificVisibleTreasures() {
+        return specificVisibleTreasures;
+    }
     
     
 }
