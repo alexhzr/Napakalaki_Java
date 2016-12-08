@@ -7,6 +7,7 @@ package napakalaki;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -17,7 +18,35 @@ public class PruebaNapakalaki {
     static final int MAX_TREASURES = 20;
     
     public static void main(String[] args) {
-        inicializarCartas();
+        ArrayList<Treasure> v1 = new ArrayList();
+        ArrayList<Treasure> h1 = new ArrayList();
+        ArrayList<Treasure> v2 = new ArrayList();
+        ArrayList<Treasure> h2 = new ArrayList();
+        ArrayList<TreasureKind> t1 = new ArrayList();
+        ArrayList<TreasureKind> t2 = new ArrayList();
+        
+        v1.add(new Treasure("2", MAX_TREASURES, TreasureKind.ONEHAND));
+        v1.add(new Treasure("2", MAX_TREASURES, TreasureKind.HELMET));
+        h1.add(new Treasure("2", MAX_TREASURES, TreasureKind.SHOES));
+
+        t2.add(TreasureKind.ONEHAND);
+        t2.add(TreasureKind.HELMET);
+        
+        v2.add(new Treasure("2", MAX_TREASURES, TreasureKind.ONEHAND));
+        h2.add(new Treasure("2", MAX_TREASURES, TreasureKind.ONEHAND));
+        h2.add(new Treasure("2", MAX_TREASURES, TreasureKind.HELMET));
+        h2.add(new Treasure("2", MAX_TREASURES, TreasureKind.ARMOR));
+        
+        BadConsequence bc1 = new BadConsequence("prueba", 2, 0, 3);
+        BadConsequence bc2 = new BadConsequence("prueba", 2, t1, t2);
+        BadConsequence bc1a = bc1.adjustToFitTreasureLists(v1, h1);
+        BadConsequence bc2a = bc2.adjustToFitTreasureLists(v2, h2);
+        
+        System.out.println("BC1 original:\n"+bc1);
+        System.out.println("BC1 ajustada:\n"+bc1a);
+        System.out.println("BC2 original:\n"+bc2);
+        System.out.println("BC2 ajustada:\n"+bc2a);
+        /*inicializarCartas();
        
         ArrayList<Monster> nivelSup10, perdidaNiveles, gananciaNivSup1,
             perdidaOneHand, perdidaHelmet, perdidaArmor, perdidaBothHands, perdidaShoes;
@@ -39,7 +68,10 @@ public class PruebaNapakalaki {
         imprimirMonstruos("\nMonstruos con pérdida de tesoro HELMET:", perdidaHelmet);
         imprimirMonstruos("\nMonstruos con pérdida de tesoro ARMOR:", perdidaArmor);
         imprimirMonstruos("\nMonstruos con pérdida de tesoro BOTHHANDS:", perdidaBothHands);
-        imprimirMonstruos("\nMonstruos con pérdida de tesoro SHOES:", perdidaShoes);        
+        imprimirMonstruos("\nMonstruos con pérdida de tesoro SHOES:", perdidaShoes);
+        */
+        
+        
         
     }
     
@@ -62,7 +94,9 @@ public class PruebaNapakalaki {
             bc = monstruos.get(i).getBadConsecuence();
             if      ((bc.getLevels() != 0) 
                     && (bc.getSpecificHiddenTreasures().size() == 0) 
-                    && (bc.getSpecificVisibleTreasures().size() == 0))  
+                    && (bc.getSpecificVisibleTreasures().size() == 0)
+                    && (bc.getnHiddenTreasures() == 0)
+                    && (bc.getnVisibleTreasures() == 0))
                 retMonsters.add(monstruos.get(i));
         }
         
