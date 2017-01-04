@@ -51,7 +51,9 @@ public class Player {
     }
     
     private void decrementLevels(int I) {
-        level -= I;
+        if (level - I <= 0)
+            level = 0;
+        else level -= I;
     }
     
     private void setPendingBadConsequence(BadConsequence b) {
@@ -78,7 +80,7 @@ public class Player {
         BadConsequence badConsequence = m.getBadConsecuence();
         int nLevels = badConsequence.getLevels();
         decrementLevels(nLevels);
-        pendingBadConsequence = badConsequence.adjustToFitTreasureLists(hiddenTreasures, hiddenTreasures);
+        setPendingBadConsequence(badConsequence.adjustToFitTreasureLists(visibleTreasures, hiddenTreasures));
     }
     
     private boolean canMakeTreasureVisible(Treasure t) {
@@ -139,11 +141,11 @@ public class Player {
     }
     
     public ArrayList<Treasure> getHiddenTreasures() {
-        return new ArrayList<Treasure>();
+        return hiddenTreasures;
     }
     
     public ArrayList<Treasure> getVisibleTreasures() {
-        return new ArrayList<Treasure>();
+        return visibleTreasures;
     }
     
     public CombatResult combat(Monster m) {
@@ -259,7 +261,7 @@ public class Player {
     }
     
     private Treasure giveMeATreasure() {
-        int i = (int) (Math.random() * 0 + hiddenTreasures.size());
+        int i = (int) (Math.random() * hiddenTreasures.size() + 0);
         Treasure treasure = hiddenTreasures.get(i);
         hiddenTreasures.remove(treasure);
         

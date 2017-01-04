@@ -116,8 +116,8 @@ public class CardDealer {
         unusedTreasures.add(new Treasure("Necro-gnomicón", 2, TreasureKind.ONEHAND));
         unusedTreasures.add(new Treasure("Necrotelecom", 2, TreasureKind.HELMET));
         unusedTreasures.add(new Treasure("Porra preternatural", 2, TreasureKind.ONEHAND));
-        unusedTreasures.add(new Treasure("Tentácula de pega", 0, TreasureKind.HELMET));
-        unusedTreasures.add(new Treasure("Zapato deja-amigos", 0, TreasureKind.SHOES));
+        unusedTreasures.add(new Treasure("Tentácula de pega", 2, TreasureKind.HELMET));
+        unusedTreasures.add(new Treasure("Zapato deja-amigos", 1, TreasureKind.SHOES));
         unusedTreasures.add(new Treasure("Shogulador", 1, TreasureKind.BOTHHANDS));
         unusedTreasures.add(new Treasure("Varita de atizamiento", 3, TreasureKind.ONEHAND));
     }

@@ -32,6 +32,13 @@ public class Treasure {
     public int getBonus() {
         return bonus;
     }
+
+    @Override
+    public String toString() {
+        return "Treasure{" + "name=" + name + ", bonus=" + bonus + ", type=" + type + '}';
+    }
+    
+    
     
     
 }

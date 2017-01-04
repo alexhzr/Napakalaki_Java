@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Álex Hernández - www.github.com/alexhzr
  */
+
 package napakalaki;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- *
- * @author alexhernandez
- */
 public class BadConsequence {
     static final int MAX_TREASURES = 20;
     private String text;
