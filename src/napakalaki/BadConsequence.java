@@ -1,5 +1,5 @@
 /**
- * @author Álex Hernández - www.github.com/alexhzr
+ * @author Álex Hernández -- www.github.com/alexhzr
  */
 
 package napakalaki;

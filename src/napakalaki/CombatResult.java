@@ -7,7 +7,7 @@ package napakalaki;
 
 /**
  *
- * @author alex
+ * @author Alex Hernández Recio
  */
 public enum CombatResult {
     WINGAME, WIN, LOSE
